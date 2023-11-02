@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="input-area">
+        <input type="text" id="toDoText"/>
+    </div>
+    <div class="list-area">
+        <ul id="toDoList">
+
+        </ul>
+    </div>
+    <script>
+        var input = document.querySelector('#toDoText');
+        input.addEventListener('keyup',function(e){
+            console.log(e.key=="Enter");
+            if(e.key=="Enter"){
+                const li = document.createElement('li');
+                const span = document.createElement('span');
+                span.innerText = e.target.value;
+                const dlt = document.createElement('button');
+                dlt.innerText = 'X';
+                deleteTask(dlt,li);
+                
+                const tick = document.createElement('input');
+                tick.type="checkbox";                
+                crossSpan(tick,span);
+                li.append(span,tick,dlt);
+                document.querySelector('#toDoList').append(li);
+            }
+        })
+
+        function deleteTask(dlt,li){
+         dlt.addEventListener('click',function(){
+            li.remove();
+         })   
+        }
+
+        function crossSpan(tick,span){
+           tick.addEventListener('change',function(){
+                if(tick.checked){
+                    span.style='text-decoration:line-through';
+                }
+                else{
+                    span.style='text-decoration:none';
+                }
+           })            
+        }
+    </script>
+</body>
+</html>
