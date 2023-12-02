@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <label>First Name</label>
+        <input type="text" id="txtFName"/><br>
+        <label>Second Name</label>
+        <input type="number" id="txtSName"/><br>
+        <label>Email</label>
+        <input type="email" id="txtEmail"/> <br>
+        <input type="button" value="submit" id="btnSubmit"/>
+    </div>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Second Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <script>
+        var obj={};
+        var objArray = [];
+        document.querySelector('#btnSubmit').addEventListener('click',function(){
+            obj.firstName = document.querySelector('#txtFName').value;
+            obj.secondName = document.querySelector('#txtSName').value;
+            obj.email =document.querySelector('#txtEmail').value;
+            if(localStorage.getItem('sectionA2')){
+                objArray = JSON.parse(localStorage.getItem('sectionA2'));
+            }
+            objArray.push(obj);
+            localStorage.setItem('sectionA2',JSON.stringify(objArray));
+            createTable(obj);
+        })
+
+        function createTable(obj){
+            const tr = document.createElement('tr');
+            for(var key in obj){
+                const td = document.createElement('td');
+                td.innerText = obj[key];
+                tr.append(td);
+            }
+            document.querySelector('table tbody').append(tr);
+        }
+    window.addEventListener('load',function(){
+            console.log('loadEvent')
+          
+            if(localStorage.getItem('sectionA2')){
+                objArray = JSON.parse(localStorage.getItem('sectionA2'));
+                objArray.forEach(obj=>{
+                createTable(obj);
+            })
+            }
+        })
+    </script>
+</body>
+</html>

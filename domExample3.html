@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="loadData()">
+    <div>
+        First Name: <input type="text" id="fName"/> <br><br>
+        Last Name: <input type="text" id="lName"/> <br><br>
+        Email: <input type="email" id="email"/> <br><br>
+        Age: <input type="number" id="age"/> <br><br>
+        <button>Submit</button>
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        var userObject={};
+        var userArray = [];
+        document.querySelector('button').addEventListener('click',e=>{
+            userObject.fName = document.querySelector('#fName').value;
+            userObject.lName = document.querySelector('#lName').value;
+            userObject.email = document.querySelector('#email').value;
+            userObject.age = document.querySelector('#age').value;
+            createTable(userObject);
+            if(localStorage.getItem('userDetails')){
+                userArray = JSON.parse(localStorage.getItem('userDetails'));
+            }
+            userArray.push(userObject);
+            localStorage.setItem('userDetails',JSON.stringify(userArray));
+  
+        })
+
+        function createTable(obj){
+            const tr = document.createElement('tr');
+            for(var key in obj){
+                const td = document.createElement('td');
+                td.innerText = obj[key];
+                tr.append(td);
+            }
+            const td = document.createElement('td');            
+            td.innerText = 'x';            
+            td.addEventListener('click',function(e){
+                tr.remove();
+                let arrayIndex = null;
+                userArray.forEach((user,index)=>{
+                    if(user.email == obj.email){
+                        arrayIndex = index;
+                    }
+                })
+                console.log(arrayIndex);
+                userArray.splice(arrayIndex,1);  
+                localStorage.setItem('userDetails',JSON.stringify(userArray));     
+            });
+
+            tr.append(td);
+            document.querySelector('table tbody').append(tr);
+        }
+
+        
+
+        window.addEventListener('load',function(){
+            if(localStorage.getItem('userDetails')){
+                userArray = JSON.parse(localStorage.getItem('userDetails'));
+                userArray.forEach(user=>{
+                    createTable(user);
+                })
+            }
+        })
+
+    </script>
+</body>
+</html>

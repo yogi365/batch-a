@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Age</th>
+                <th>Contact Number</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script>
+        var arr = [
+            {
+                firstName:'ABC',
+                age:20,
+                contact:"123-456789"
+            },
+            {
+                firstName:'ABC',
+                age:20,
+                contact:"123-456789"
+            },
+            {
+                firstName:'ABC',
+                age:20,
+                contact:"123-456789"
+            }
+        ]
+
+        // arr.forEach(user=>{
+        //     const tr = document.createElement('tr');
+        //     const td1= document.createElement('td');
+        //     const td2= document.createElement('td');
+        //     const td3= document.createElement('td');
+        //     td1.innerText = user.firstName;
+        //     td2.innerText = user.age;
+        //     td3.innerText = user.contact;
+        //     tr.append(td1,td2,td3);
+        //     document.querySelector('table tbody').append(tr);
+        // })
+
+        arr.forEach(user=>{
+            const tr = document.createElement('tr');
+            for(key in user){
+                const td = document.createElement('td');
+                td.innerText = user[key];
+                tr.append(td);
+            }
+            document.querySelector('table tbody').append(tr);
+        })
+
+    </script>
+</body>
+</html>
